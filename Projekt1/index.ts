@@ -22,14 +22,14 @@ StartApp()
 getElements()
 {
     this.data1 = document.querySelector('#data1')
-    this.data2 = document.getElementById("#data2")
-    this.data3 = document.getElementById("#data3")
-    this.data4 = document.getElementById("#data4")
+    this.data2 = document.querySelector("#data2")
+    this.data3 = document.querySelector("#data3")
+    this.data4 = document.querySelector("#data4")
 
-    this.sum = document.getElementById("#sum")
-    this.avg = document.getElementById("#avg")
-    this.min = document.getElementById("#min")
-    this.max = document.getElementById("#max")
+    this.sum = document.querySelector("#sum")
+    this.avg = document.querySelector("#avg")
+    this.min = document.querySelector("#min")
+    this.max = document.querySelector("#max")
 
 }
 searchElements()
@@ -50,5 +50,20 @@ showData()
     const data2 =+this.data2.value;
     const data3 =+this.data3.value;
     const data4 =+this.data4.value;
+
+    const sum = data1+data2+data3+data4;
+    const avg = sum/4;
+    const min = Math.min(data1,data2,data3,data4);
+    const max = Math.max(data1,data2,data3,data4);
+
+    this.showStats(sum,avg,min,max);
+}
+showStats(sum:number,avg:number,min:number,max:number)
+{
+    this.sum.value= sum.toString();
+    this.avg.value= avg.toString();
+    this.min.value= min.toString();
+    this.max.value= max.toString();
 }
 }
+const StartApp = new Stats();
