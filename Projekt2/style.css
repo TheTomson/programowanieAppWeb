@@ -1,0 +1,43 @@
+html, body {
+    height: 100%;
+}
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0;
+    --color-bg-default: rgb(185, 205, 255);
+    background-color: var(--color-bg-default);
+    font-family:'Segoe UI';
+    overflow: hidden;
+}
+
+p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    outline: none;
+    color: rgb(255, 0, 0);
+    font-size: 25px;
+    text-transform: uppercase;
+    width: 10%;
+    height: 6%;
+    z-index: -1;
+    border-radius: 100%;
+    border: 5px solid #fefeff;
+    animation: keyAnim 1.5s forwards;
+    pointer-events: none;
+}
+@keyframes keyAnim {
+    from {
+        opacity: 0;
+        transform: scale(3);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
