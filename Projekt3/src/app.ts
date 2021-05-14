@@ -3,12 +3,23 @@ export class App {
     btn: HTMLButtonElement;
     city: string;
     cardsContainer: HTMLDivElement;
+    pictures: Map<string,string>;
     constructor() {
         this.getInput();
         this.addListener();
         this.getCityInfo();
+        this.pictures = new Map<string,string>();
+        this.pictures.set("clear sky",'./assets/sun.jpg');
+        this.pictures.set("few clouds",'./assets/cloud.png');
+        this.pictures.set("scattered clouds",'./assets/cloud.png');
+        this.pictures.set("shower rain",'./assets/rain.png');
+        this.pictures.set("thunderstorm",'./assets/rain.png');
+        this.pictures.set("snow",'./assets/snow.jpg');
+        this.pictures.set("mist",'./assets/cloud.png');
+        this.pictures.set("overcast clouds",'./assets/cloud.png');
+        this.pictures.set("broken clouds",'./assets/cloud.png');
     }
-    getInput = () =>{
+     getInput = () =>{
     this.btn = document.querySelector('button');
     this.cardsContainer = document.querySelector('#ShowCity');
     }
@@ -29,9 +40,17 @@ export class App {
         const openWeatherUrl = `http://api.openweathermap.org/data/2.5/weather?q=${this.city}&APPID=${this.opwApiKey}`;
         const weatherResponse = await fetch(openWeatherUrl);
         const weatherData = await weatherResponse.json();
+        let icon = weatherData.weather[0]['description'];
+        let imgsrc = this.pictures.get(icon);
+        if(imgsrc == null)
+        {
+            imgsrc = "./assets/sad.jpg";
+        }
+        console.log(imgsrc);
         console.log(weatherData);
         let WeatherDiv= `<div class="weatherInfo"><h2>`+this.city+`</h2> 
         <h4>{`+weatherData.coord.lon+`,`+weatherData.coord.lat+`}</h4>
+        <img src=`+imgsrc+`>
         <br/>Weather:
         <br/>Temp{`+this.Celcius(weatherData.main.temp).toString().substr(0,5)+`C ,`+weatherData.main.temp+`K }
         <br/>Clouds: `+weatherData.clouds.all+`%`+`
