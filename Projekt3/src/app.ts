@@ -50,7 +50,7 @@ export class App {
         console.log(weatherData);
         let WeatherDiv= `<div class="weatherInfo"><h2>`+this.city+`</h2> 
         <h4>{`+weatherData.coord.lon+`,`+weatherData.coord.lat+`}</h4>
-        <img src=`+imgsrc+`>
+        <img id='imgpic' src=`+imgsrc+`>
         <br/>Weather:
         <br/>Temp{`+this.Celcius(weatherData.main.temp).toString().substr(0,5)+`C ,`+weatherData.main.temp+`K }
         <br/>Clouds: `+weatherData.clouds.all+`%`+`
