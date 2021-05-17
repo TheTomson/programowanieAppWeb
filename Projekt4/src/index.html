@@ -7,14 +7,20 @@
   </head>
   <body>
     <main>
-      <input id="noteTytul" placeholder="Wprowadź tytuł"></input>
+      <input id="noteTitle" placeholder="Wprowadź tytuł"></input>
       <br/>
-      <input id="noteTresc" placeholder="Wprowadź treść"></input>
+      <textarea id="noteText" placeholder="Wprowadź treść"></textarea>
       <br/>
-      <button id="addNote">Dodaj Notatke</button>
-      <input type="checkbox">Podepnij</input>
-      <input type="color"></input>
-      <div id="showNote"></div>
+      <button id="addNote">Add Note</button>
+      <input type="checkbox" id="pin">Pin</input>
+      <div id="colors">
+        <span class="dot reddot"></span>
+        <span class="dot greendot"></span>
+        <span class="dot bluedot"></span>
+        <span class="dot yellowdot"></span>
+      </div>
+        <div id="pinedNotes">Pinned</div>
+        <div id="notpinedNotes">Others</div>
     </main>
     <script src="index.js"></script>
   </body>
