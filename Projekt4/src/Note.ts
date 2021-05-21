@@ -3,17 +3,25 @@ export class Note{
     Text:string;
     IsPined:boolean;
     Color:string;
-    ModificationDate:Date;
+    creationDate:Date;
     Tags:string[];
 
-    constructor(Title:string,Text:string,IsPined:boolean,Color:string,Tags:string[]){
+    constructor(Title:string,Text:string,IsPined:boolean,Color:string,creationDate:Date,Tags:string[]){
         this.Title = Title;
         this.Text = Text;
         this.IsPined = IsPined;
         this.Color = Color;
         this.Tags = Tags;
-        this.ModificationDate = new Date();
+        if(creationDate == null)
+        {
+            this.creationDate = new Date();
+        }
+        else
+        {
+            this.creationDate = creationDate;
+        }
     }
+
     getTitle()
     {
         return this.Title;
@@ -26,8 +34,8 @@ export class Note{
     {
         return this.Color;
     }
-    getDate()
+    getCreationDate()
     {
-        return this.ModificationDate;
+        return this.creationDate;
     }
 }

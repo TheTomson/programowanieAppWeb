@@ -1,6 +1,7 @@
 export class AppStorage{
 
 saveData(data: any) {
+
     localStorage.setItem('noteData', JSON.stringify(data));
 }
 getData() {
