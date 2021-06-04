@@ -37,7 +37,6 @@ export class App {
                 for(let noteEntry in savedNotes[noteArray])
                 {
                     let savedNoteData = savedNotes[noteArray][noteEntry];
-                    console.log(savedNoteData);
                     let restoredNote = new Note(savedNoteData['Title'],savedNoteData['Text'],savedNoteData['IsPinned'],savedNoteData['Color'],savedNotes['CreationDate'],savedNoteData['Tags']);
                     this.noteContainer.Push(restoredNote);
                     this.renderNote(restoredNote);
@@ -97,7 +96,13 @@ export class App {
         const deleteNote = document.createElement('img');
         const editNote = document.createElement('img');
 
-        if(this.isNotePined){
+        const i3 = document.createElement('input');
+        i3.type = 'checkbox';
+        i3.id = 't3';
+        i3.hidden = true;
+
+
+        if(note.getPinned()){
            this.showPinned.appendChild(noteView);
         }
         else
@@ -110,6 +115,7 @@ export class App {
         noteView.appendChild(date);
         noteView.appendChild(deleteNote);
         noteView.appendChild(editNote);
+        noteView.appendChild(i3);
 
         header.textContent = note.getTitle();
         text.textContent = note.getText();
@@ -122,6 +128,22 @@ export class App {
         editNote.className = 'controls';
         deleteNote.addEventListener('click', () => this.deleteNote(noteView,note));
         editNote.addEventListener('click', () => this.editNote(noteView,note));
+
+        const applyChanges = document.createElement('img');
+        applyChanges.src = './assets/checked.svg';
+        applyChanges.className = 'controls';
+        applyChanges.id = 'apply';
+        applyChanges.hidden = true;
+        noteView.appendChild(applyChanges);
+        applyChanges.addEventListener('click', () => this.applyChanges(noteView,note));
+
+        const discardChanges = document.createElement('img');
+        discardChanges.src = './assets/remove.svg';
+        discardChanges.className = 'controls';
+        discardChanges.id = 'discard'
+        discardChanges.hidden = true;
+        noteView.appendChild(discardChanges);
+        discardChanges.addEventListener('click', () => this.discardChanges(noteView,note));
     }
     
     addNote()
@@ -144,34 +166,80 @@ export class App {
     
     editNote(element:HTMLDivElement,note:Note)
     {   
-        const applyChanges = document.createElement('img');
-        applyChanges.src = './assets/checked.svg';
-        applyChanges.className = 'controls';
-        element.appendChild(applyChanges);
-        applyChanges.addEventListener('click', () => this.applyChanges(element,note));
+        let applyButton = element.querySelector('#apply') as HTMLImageElement;
+        applyButton.hidden = false;
 
-        const discardChanges = document.createElement('img');
-        discardChanges.src = './assets/remove.svg';
-        discardChanges.className = 'controls';
-        element.appendChild(discardChanges);
-        discardChanges.addEventListener('click', () => this.discardChanges(element));
+        let discardButton = element.querySelector('#discard') as HTMLImageElement;
+        discardButton.hidden = false;
 
         let i = document.createElement('input');
+        i.id = 't1';
         let oldHeader = document.querySelector('h5');
         i.defaultValue = oldHeader.textContent;
         oldHeader.replaceWith(i);
 
         let i2 = document.createElement('input');
+        i2.id = 't2';
         let oldContent = document.querySelector('#text');
         i2.defaultValue = oldContent.textContent;
         oldContent.replaceWith(i2);
+
+        let i3 = element.querySelector('#t3') as HTMLInputElement;
+        i3.hidden = false;
+
+        if (note.getPinned())
+        {
+            i3.checked = true;
+        }
     }
     applyChanges(element:HTMLDivElement,note:Note)
-    {
+    {   
+        note.setTitle((element.querySelector('#t1') as HTMLInputElement).value);
+        note.setText((element.querySelector('#t2') as HTMLInputElement).value);
+        note.setPinned((element.querySelector('#t3') as HTMLInputElement).checked);
 
+        let i = document.createElement('h5');
+        let oldElement = document.querySelector('#t1') as HTMLInputElement;
+        i.textContent = oldElement.value;
+        oldElement.replaceWith(i);
+
+        let i2 = document.createElement('div');
+        i2.id = 'text';
+        oldElement = document.querySelector('#t2') as HTMLInputElement;
+        i2.textContent = oldElement.value;
+        oldElement.replaceWith(i2);
+
+        let applyButton = element.querySelector('#apply') as HTMLImageElement;
+        applyButton.hidden = true;
+
+        let discardButton = element.querySelector('#discard') as HTMLImageElement;
+        discardButton.hidden = true;
+
+        let i3 = element.querySelector('#t3') as HTMLInputElement;
+        i3.hidden = true;
+
+        this.localStorage.saveData(this.noteContainer);
     }
-    discardChanges(element:HTMLDivElement)
+    discardChanges(element:HTMLDivElement,note:Note)
     {
-        
+        let i = document.createElement('h5');
+        let oldElement = document.querySelector('#t1') as HTMLInputElement;
+        i.textContent = note.getTitle();
+        oldElement.replaceWith(i);
+
+        let i2 = document.createElement('div');
+        i2.id = 'text';
+        i2.textContent = note.getText();
+        oldElement = document.querySelector('#t2') as HTMLInputElement;
+        oldElement.replaceWith(i2);
+
+        let applyButton = element.querySelector('#apply') as HTMLImageElement;
+        applyButton.hidden = true;
+
+        let discardButton = element.querySelector('#discard') as HTMLImageElement;
+        discardButton.hidden = true;
+
+        let i3 = element.querySelector('#t3') as HTMLInputElement;
+        i3.hidden = true;
     }
 }  
