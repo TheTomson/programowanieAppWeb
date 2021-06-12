@@ -1,8 +1,17 @@
+export enum storageType {
+  AppLocalStorage,
+  AppFirestorageStorage,
+}
+
+export const config = {
+  storageType: storageType.AppFirestorageStorage,
+};
+
 export const firebaseConfig = {
-    apiKey: "AIzaSyCTzi64SfVlNhnnFQgWLylRutgfiQkWl1I",
-    authDomain: "notekeep-b85ac.firebaseapp.com",
-    projectId: "notekeep-b85ac",
-    storageBucket: "notekeep-b85ac.appspot.com",
-    messagingSenderId: "1083815608836",
-    appId: "1:1083815608836:web:3ad60179cf8f45e7a36b51"
-  };
+  apiKey: "AIzaSyC3eXttY7h2KvhVjN8yCQ_CqSYr_l9NiMg",
+  authDomain: "notekeeppa.firebaseapp.com",
+  projectId: "notekeeppa",
+  storageBucket: "notekeeppa.appspot.com",
+  messagingSenderId: "115509379069",
+  appId: "1:115509379069:web:59af03391d908b16fb2394",
+};

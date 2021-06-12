@@ -25,6 +25,6 @@
   },
   "dependencies": {
     "class-transformer": "^0.4.0",
-    "firebase": "^8.6.3"
+    "firebase": "^8.6.5"
   }
 }
